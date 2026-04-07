@@ -1,0 +1,41 @@
+.chat-page {
+  height: 100svh;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.chat-shell {
+  max-width: 1680px;
+  height: calc(100svh - 24px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 118px 390px minmax(0, 1fr);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(9, 12, 18, 0.52);
+  box-shadow: var(--shadow-main);
+  backdrop-filter: blur(22px);
+}
+.chat-shell > * {
+  min-height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 1280px) {
+  .chat-shell {
+    grid-template-columns: 104px 320px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .chat-page {
+    padding: 10px;
+  }
+
+  .chat-shell {
+    height: calc(100svh - 20px);
+    grid-template-columns: 1fr;
+  }
+}

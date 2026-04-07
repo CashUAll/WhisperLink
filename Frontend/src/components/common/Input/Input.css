@@ -1,0 +1,27 @@
+.input-shell {
+  position: relative;
+}
+
+.input-shell__prefix {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.input-shell__field {
+  width: 100%;
+  padding: 14px 16px 14px 84px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  outline: none;
+}
+
+.input-shell__field::placeholder {
+  color: var(--text-muted);
+}

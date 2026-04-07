@@ -1,0 +1,63 @@
+.message-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  max-width: 70%;
+}
+
+.message-row--own {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.message-card {
+  padding: 10px 12px;
+  border-radius: 16px 16px 16px 8px;
+  background: var(--bg-message);
+}
+
+.message-card--own {
+  border-radius: 16px 16px 8px 16px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.88), rgba(255, 0, 127, 0.78));
+}
+
+.message-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.message-card__name {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.message-card__role,
+.message-card__time {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+}
+
+.message-card__text {
+  margin: 6px 0;
+  line-height: 1.35;
+  font-size: 0.92rem;
+}
+
+.message-card__badge {
+  display: inline-flex;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .message-row {
+    max-width: 100%;
+  }
+}
