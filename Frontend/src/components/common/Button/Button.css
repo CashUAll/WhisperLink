@@ -1,0 +1,38 @@
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  transition: background 180ms ease;
+}
+
+.ui-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ui-button--primary {
+  border-color: transparent;
+  background: var(--accent-main);
+  color: #fff;
+}
+
+.ui-button--ghost {
+  background: transparent;
+}
+
+.ui-button--block {
+  width: 100%;
+}
+
+.ui-button__label {
+  font-weight: 700;
+}
+
+.ui-button__note {
+  display: none;
+}
