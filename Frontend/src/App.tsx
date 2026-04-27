@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
-import { LandingPage } from './pages/Landing/LandingPage'
-import { ChatPage } from './pages/ChatDashboard/ChatPage'
+import { LandingPage }   from './pages/landing/LandingPage'
+import { LoginPage }     from './pages/auth/LoginPage'
+import { RegisterPage }  from './pages/auth/RegisterPage'
+import { ChatPage }      from './pages/chat/ChatPage'
 
-type AppPage = 'landing' | 'chat'
+type AppPage = 'landing' | 'login' | 'register' | 'chat'
 
 function App() {
   const [page, setPage] = useState<AppPage>('landing')
@@ -12,9 +14,11 @@ function App() {
     return () => { document.body.style.overflow = '' }
   }, [page])
 
-  return page === 'chat'
-    ? <ChatPage onBack={() => setPage('landing')} />
-    : <LandingPage onEnter={() => setPage('chat')} />
+  if (page === 'chat')     return <ChatPage onBack={() => setPage('landing')} />
+  if (page === 'login')    return <LoginPage    onLogin={() => setPage('chat')} onGoRegister={() => setPage('register')} onBack={() => setPage('landing')} />
+  if (page === 'register') return <RegisterPage onRegister={() => setPage('chat')} onGoLogin={() => setPage('login')} onBack={() => setPage('landing')} />
+
+  return <LandingPage onEnter={() => setPage('login')} />
 }
 
 export default App

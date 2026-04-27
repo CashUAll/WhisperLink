@@ -1,0 +1,318 @@
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* ── Hero ── */
+.profile-hero {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-hero__cover {
+  height: 100px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.45), rgba(255, 0, 127, 0.3));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-hero__body {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  padding: 0 32px 24px;
+  margin-top: -36px;
+  flex-wrap: wrap;
+}
+
+/* ── Avatar ── */
+.profile-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--bg-main, #0d1018);
+  box-shadow: 0 10px 32px rgba(255, 0, 127, 0.3);
+}
+
+.profile-status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2.5px solid var(--bg-main, #0d1018);
+}
+
+/* ── Info ── */
+.profile-hero__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 36px;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.profile-handle {
+  font-size: 0.85rem;
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.profile-role {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+/* Edit inputs */
+.profile-edit-input {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(138, 43, 226, 0.4);
+  border-radius: 10px;
+  padding: 6px 12px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+  max-width: 280px;
+  transition: border-color 160ms ease;
+}
+
+.profile-edit-input--name { font-size: 1.2rem; font-weight: 700; }
+.profile-edit-input--handle { color: #c084fc; }
+
+.profile-edit-input:focus {
+  border-color: rgba(138, 43, 226, 0.7);
+}
+
+.profile-edit-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(138, 43, 226, 0.35);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text-main);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 160ms ease;
+  box-sizing: border-box;
+}
+
+.profile-edit-textarea:focus {
+  border-color: rgba(138, 43, 226, 0.6);
+}
+
+/* ── Edit button ── */
+.profile-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+  align-self: flex-start;
+  margin-top: 40px;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.profile-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-main);
+}
+
+.profile-edit-btn--save {
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(255, 0, 127, 0.3);
+}
+
+.profile-edit-btn--save:hover {
+  background: linear-gradient(135deg, #9d3df0, #ff1a8c);
+  color: #fff;
+}
+
+.profile-edit-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ── Stats ── */
+.profile-stats {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-stat:last-child { border-right: none; }
+
+.profile-stat__value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.profile-stat__label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ── Content ── */
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px 32px;
+  overflow-y: auto;
+}
+
+.profile-section {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-section:last-child { border-bottom: none; }
+
+.profile-section__title {
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.profile-bio {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.65;
+}
+
+/* ── Contact ── */
+.profile-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-row__icon {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #c084fc;
+  flex-shrink: 0;
+}
+
+.contact-row__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-row__value {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.presence-badge {
+  margin-left: auto;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ── Activity ── */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.activity-item__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.activity-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.activity-item__text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.activity-item__time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}

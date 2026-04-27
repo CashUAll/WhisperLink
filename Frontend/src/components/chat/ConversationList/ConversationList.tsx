@@ -1,6 +1,5 @@
+import { useState } from 'react'
 import type { ConversationPreview } from '../../../types'
-import { Input } from '../../common'
-import { groupConversations } from '../../../utils'
 import { ConversationItem } from '../ConversationItem/ConversationItem'
 import './ConversationList.css'
 
@@ -9,46 +8,44 @@ interface ConversationListProps {
   activeConversationId: string
 }
 
-export function ConversationList({
-  conversations,
-  activeConversationId,
-}: ConversationListProps) {
-  const groupedConversations = groupConversations(conversations)
+export function ConversationList({ conversations, activeConversationId }: ConversationListProps) {
+  const [search, setSearch] = useState('')
+
+  const filtered = conversations.filter((c) =>
+    c.title.toLowerCase().includes(search.toLowerCase()),
+  )
 
   return (
-    <section id="conversation-panel" className="conversation-panel">
-      <div className="list-top">
-        <div>
-          <h2 className="list-top__title">Conversations</h2>
-        </div>
-        <span className="list-top__count">{conversations.length}</span>
+    <section className="conv-list-panel">
+      <div className="conv-list-header">
+        <h2 className="conv-list-title">Mesaje</h2>
+        <span className="conv-list-count">{conversations.length}</span>
       </div>
 
-      <Input
-        type='text'
-        prefixLabel="Search"
-        placeholder="Search user, chat or group"
-      />
+      <div className="conv-search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="conv-search-icon">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          className="conv-search-input"
+          type="text"
+          placeholder="Caută..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
 
-      <div className="group-list">
-        {Object.entries(groupedConversations).map(([section, items]) => (
-          <section key={section} className="list-group">
-            <div className="list-group__head">
-              <p className="section-label">{section}</p>
-              <span className="list-group__count">{items.length}</span>
-            </div>
-
-            <div className="list-group__body">
-              {items.map((conversation) => (
-                <ConversationItem
-                  key={conversation.id}
-                  conversation={conversation}
-                  isActive={conversation.id === activeConversationId}
-                />
-              ))}
-            </div>
-          </section>
+      <div className="conv-list">
+        {filtered.map((conversation) => (
+          <ConversationItem
+            key={conversation.id}
+            conversation={conversation}
+            isActive={conversation.id === activeConversationId}
+          />
         ))}
+        {filtered.length === 0 && (
+          <p className="conv-list-empty">Nicio conversație găsită</p>
+        )}
       </div>
     </section>
   )

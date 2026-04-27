@@ -1,0 +1,10 @@
+/* RegisterPage reuses all styles from LoginPage.css */
+/* Only add unique overrides here */
+@import './LoginPage.css';
+
+.auth-terms {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
