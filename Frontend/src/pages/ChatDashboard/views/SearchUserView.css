@@ -1,0 +1,133 @@
+.search-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.search-count {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ── User cards ── */
+.user-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background 160ms ease;
+}
+
+.user-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.user-card__avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.user-card__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-card__dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-panel);
+}
+
+.user-card__dot--online  { background: var(--success); }
+.user-card__dot--focus   { background: #f59e0b; }
+.user-card__dot--away    { background: #60a5fa; }
+.user-card__dot--offline { background: var(--text-muted); }
+
+.user-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-card__name {
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.user-card__role {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.user-card__status {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.user-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.card-btn svg { width: 15px; height: 15px; }
+
+.card-btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-soft);
+}
+
+.card-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+}
+
+.card-btn--accent {
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255, 0, 127, 0.22);
+}
+
+.card-btn--accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(255, 0, 127, 0.32);
+}

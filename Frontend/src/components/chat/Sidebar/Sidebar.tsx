@@ -1,76 +1,102 @@
-import type { ChatUser, QuickAction, SideStat } from '../../../types'
+import type { ViewId, ChatUser } from '../../../types'
 import { Avatar } from '../../common'
-import { getInitials, joinClassNames } from '../../../utils'
 import './Sidebar.css'
 
 interface SidebarProps {
   brandName: string
-  brandCaption: string
   currentUser: ChatUser
-  actions: QuickAction[]
-  sideStats: SideStat[]
+  currentView: ViewId
+  onViewChange: (view: ViewId) => void
+  onBack: () => void
 }
 
-export function Sidebar({
-  brandName,
-  brandCaption,
-  currentUser,
-  actions,
-  sideStats,
-}: SidebarProps) {
+const NAV_ITEMS: { id: ViewId; label: string; icon: JSX.Element }[] = [
+  {
+    id: 'chat',
+    label: 'Chats',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'new-chat',
+    label: 'New Chat',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'search',
+    label: 'Search',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'notifications',
+    label: 'Alerts',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      </svg>
+    ),
+  },
+  {
+    id: 'settings',
+    label: 'Settings',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+]
+
+export function Sidebar({ brandName, currentUser, currentView, onViewChange, onBack }: SidebarProps) {
   return (
-    <aside id="chat-menu" className="side-panel">
-      <div className="side-panel__top">
-        <div className="brand-mark">WL</div>
-        <div className="brand-copy">
-          <h1 className="brand-copy__title">{brandName}</h1>
-          <p className="brand-copy__text">{brandCaption}</p>
-        </div>
+    <aside className="sidebar">
+      <div className="sidebar-top">
+        <div className="sidebar-brand">WL</div>
+        <p className="sidebar-brand__name">{brandName}</p>
       </div>
 
-      <nav className="menu-list" aria-label="Chat actions">
-        {actions.map((action, index) => (
+      <nav className="sidebar-nav" aria-label="Main navigation">
+        {NAV_ITEMS.map((item) => (
           <button
-            key={action.id}
+            key={item.id}
             type="button"
-            className={joinClassNames(
-              'menu-btn',
-              index === 0 && 'menu-btn--active',
-              action.tone === 'primary' && 'menu-btn--accent',
-            )}
-            title={action.label}
+            className={`nav-btn ${currentView === item.id ? 'nav-btn--active' : ''}`}
+            title={item.label}
+            onClick={() => onViewChange(item.id)}
           >
-            <span className="menu-btn__icon">{getInitials(action.label)}</span>
-            <span className="menu-btn__text">{action.label}</span>
+            <span className="nav-btn__icon">{item.icon}</span>
+            <span className="nav-btn__label">{item.label}</span>
           </button>
         ))}
       </nav>
 
-      <section className="profile-box">
-        <div className="profile-box__row">
-          <Avatar
-            name={currentUser.avatarText}
-            label={currentUser.name}
-            accent={currentUser.accent}
-            status={currentUser.presence}
-            size="md"
-          />
+      <div className="sidebar-bottom">
+        <Avatar
+          name={currentUser.avatarText}
+          label={currentUser.name}
+          accent={currentUser.accent}
+          status={currentUser.presence}
+          size="md"
+        />
+        <p className="sidebar-user">{currentUser.name.split(' ')[0]}</p>
 
-          <div className="profile-box__info">
-            <h2 className="profile-box__name">{currentUser.name}</h2>
-            <p className="profile-box__role">{currentUser.role}</p>
-          </div>
-        </div>
-
-        <div className="profile-box__stats">
-          {sideStats.map((stat) => (
-            <div key={stat.id} className="mini-stat">
-              <span className="mini-stat__value">{stat.value}</span>
-              <span className="mini-stat__label">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+        <button className="back-btn" title="Back to Landing" onClick={onBack}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+        </button>
+      </div>
     </aside>
   )
 }

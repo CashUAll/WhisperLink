@@ -1,4 +1,4 @@
-import { useChatContext } from '../context/ChatContext'
+import { useChatContext } from './useChatContext'
 
 export const useMessages = () => {
   const { activeConversation, currentUser } = useChatContext()

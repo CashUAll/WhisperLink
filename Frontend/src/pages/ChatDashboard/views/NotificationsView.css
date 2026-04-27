@@ -1,0 +1,226 @@
+.notif-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.notif-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.view-header__text { flex: 1; }
+
+.mark-read-btn {
+  padding: 8px 16px;
+  border: 1px solid rgba(138, 43, 226, 0.35);
+  border-radius: 10px;
+  background: transparent;
+  color: #c084fc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 160ms ease;
+  white-space: nowrap;
+}
+
+.mark-read-btn:hover { background: rgba(138, 43, 226, 0.12); }
+
+/* ── Filter tabs ── */
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-tab {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.filter-tab:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-main);
+}
+
+.filter-tab--active {
+  background: rgba(138, 43, 226, 0.14);
+  border-color: rgba(138, 43, 226, 0.4);
+  color: #c084fc;
+}
+
+/* ── Notifications list ── */
+.notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.notif-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 0;
+  color: var(--text-muted);
+}
+
+.notif-empty svg {
+  width: 48px;
+  height: 48px;
+  color: var(--success);
+}
+
+.notif-empty p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 160ms ease;
+  position: relative;
+}
+
+.notif-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+.notif-item--unread {
+  background: rgba(138, 43, 226, 0.07);
+  border-color: rgba(138, 43, 226, 0.18);
+}
+
+.notif-item__avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-item__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notif-item__from {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.notif-item__text {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.notif-item__time {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.notif-item__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a2be2, #ff007f);
+  flex-shrink: 0;
+}
+
+.notif-item__request-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.req-btn {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition: background 160ms ease;
+}
+
+.req-btn--accept {
+  background: rgba(81, 210, 115, 0.15);
+  border: 1px solid rgba(81, 210, 115, 0.35);
+  color: var(--success);
+}
+
+.req-btn--accept:hover { background: rgba(81, 210, 115, 0.25); }
+
+.req-btn--decline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.req-btn--decline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-soft);
+}
+
+.notif-item__dismiss {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.notif-item__dismiss svg { width: 12px; height: 12px; }
+
+.notif-item:hover .notif-item__dismiss {
+  opacity: 1;
+}
+
+.notif-item__dismiss:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+}
