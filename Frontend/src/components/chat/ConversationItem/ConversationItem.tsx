@@ -1,6 +1,5 @@
 import type { ConversationPreview } from '../../../types'
-import { Avatar } from '../../common'
-import { formatUnreadCount, getPresenceLabel, joinClassNames } from '../../../utils'
+import { formatUnreadCount, joinClassNames } from '../../../utils'
 import './ConversationItem.css'
 
 interface ConversationItemProps {
@@ -8,45 +7,32 @@ interface ConversationItemProps {
   isActive?: boolean
 }
 
-export function ConversationItem({
-  conversation,
-  isActive = false,
-}: ConversationItemProps) {
+export function ConversationItem({ conversation, isActive = false }: ConversationItemProps) {
+  const isOnline = conversation.presence === 'online'
+
   return (
-    <article
-      className={joinClassNames('conversation-item', isActive && 'conversation-item--active')}
-    >
-      <Avatar
-        name={conversation.avatarText}
-        label={conversation.title}
-        accent={conversation.accent}
-        status={conversation.presence}
-      />
-
-      <div className="conversation-item__body">
-        <div className="conversation-item__top">
-          <h3 className="conversation-item__title">{conversation.title}</h3>
-          <span className="conversation-item__time">{conversation.time}</span>
+    <button className={joinClassNames('conv-item', isActive && 'conv-item--active')}>
+      <div className="conv-avatar-wrap">
+        <div
+          className="conv-avatar"
+          style={{ background: conversation.accent }}
+        >
+          {conversation.avatarText}
         </div>
-
-        <p className="conversation-item__message">{conversation.message}</p>
-
-        <div className="conversation-item__bottom">
-          <span className="conversation-item__tag">{conversation.tag}</span>
-          <span className="conversation-item__status">
-            {getPresenceLabel(conversation.presence)}
-          </span>
-        </div>
+        {isOnline && <span className="conv-online-dot" />}
       </div>
 
-      <div className="conversation-item__meta">
-        {conversation.pinned ? <span className="conversation-item__pin">Pinned</span> : null}
-        {conversation.unreadCount > 0 ? (
-          <span className="conversation-item__badge">
-            {formatUnreadCount(conversation.unreadCount)}
-          </span>
-        ) : null}
+      <div className="conv-body">
+        <div className="conv-top">
+          <span className="conv-name">{conversation.title}</span>
+          <span className="conv-time">{conversation.time}</span>
+        </div>
+        <span className="conv-preview">{conversation.message}</span>
       </div>
-    </article>
+
+      {conversation.unreadCount > 0 && (
+        <span className="conv-badge">{formatUnreadCount(conversation.unreadCount)}</span>
+      )}
+    </button>
   )
 }

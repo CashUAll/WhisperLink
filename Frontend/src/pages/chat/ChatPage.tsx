@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import type { ViewId } from '../../types'
-import { ChatProvider } from '../../context/ChatContext'
+import { ChatProvider } from '../../store/ChatStore'
 import { ConversationList, ChatWindow, Sidebar } from '../../components/chat'
 import { useConversations, useMessages } from '../../hooks'
 import { NewChatView }       from './views/NewChatView'
 import { SearchUserView }    from './views/SearchUserView'
 import { NotificationsView } from './views/NotificationsView'
 import { SettingsView }      from './views/SettingsView'
+import { FriendsView }       from './views/FriendsView'
+import { AddFriendView }     from './views/AddFriendView'
+import { ProfileView }       from './views/ProfileView'
 import './ChatPage.css'
 
 interface ChatPageProps {
@@ -44,6 +47,9 @@ function ChatPageContent({ onBack }: ChatPageProps) {
         {currentView === 'search'        && <SearchUserView />}
         {currentView === 'notifications' && <NotificationsView />}
         {currentView === 'settings'      && <SettingsView />}
+        {currentView === 'friends'       && <FriendsView />}
+        {currentView === 'add-friend'    && <AddFriendView />}
+        {currentView === 'profile'       && <ProfileView />}
       </div>
     </main>
   )

@@ -1,21 +1,6 @@
-import { useChatContext } from './useChatContext'
+import { useChatStore } from '../store/ChatStore'
 
-export const useConversations = () => {
-  const {
-    brandName,
-    brandCaption,
-    currentUser,
-    sideStats,
-    actionButtons,
-    conversations,
-  } = useChatContext()
-
-  return {
-    brandName,
-    brandCaption,
-    currentUser,
-    sideStats,
-    actionButtons,
-    conversations,
-  }
+export function useConversations() {
+  const { brandName, currentUser, conversations } = useChatStore()
+  return { brandName, currentUser, conversations }
 }

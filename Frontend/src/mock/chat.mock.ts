@@ -1,8 +1,14 @@
+// ─── Mock Data ────────────────────────────────────────────────────────────────
+// Date de test folosite până când backend-ul este gata.
+// Când conectezi API-ul real, șterge acest fișier și înlocuiește apelurile
+// din store/ChatStore.tsx cu apeluri din api/.
+
 import type { ChatWorkspaceModel } from '../types'
 
-const chatWorkspace: ChatWorkspaceModel = {
+export const mockChatWorkspace: ChatWorkspaceModel = {
   brandName: 'WhisperLink',
   brandCaption: 'Visual chat workspace built for fast backend integration.',
+
   currentUser: {
     id: 'user-01',
     name: 'Adrian Munteanu',
@@ -13,61 +19,22 @@ const chatWorkspace: ChatWorkspaceModel = {
     avatarText: 'AM',
     accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
   },
+
   sideStats: [
-    { id: 'stat-unread', label: 'Unread', value: '12' },
-    { id: 'stat-online', label: 'Online', value: '18' },
+    { id: 'stat-unread',  label: 'Unread',  value: '12' },
+    { id: 'stat-online',  label: 'Online',  value: '18' },
     { id: 'stat-pending', label: 'Pending', value: '04' },
   ],
+
   actionButtons: [
-    {
-      id: 'search-user',
-      label: 'Search User',
-      note: 'Find any profile fast',
-      tone: 'primary',
-    },
-    {
-      id: 'profile-main',
-      label: 'Profile',
-      note: 'Main account card',
-      tone: 'surface',
-    },
-    {
-      id: 'friends',
-      label: 'Friends',
-      note: 'Active connections',
-      tone: 'surface',
-    },
-    {
-      id: 'add-friends',
-      label: 'Add Friends',
-      note: 'Invite new people',
-      tone: 'surface',
-    },
-    {
-      id: 'profile-preview',
-      label: 'Profile',
-      note: 'Public profile view',
-      tone: 'surface',
-    },
-    {
-      id: 'new-chat',
-      label: 'New Chat',
-      note: 'Create a fresh room',
-      tone: 'primary',
-    },
-    {
-      id: 'settings',
-      label: 'Settings',
-      note: 'Control the workspace',
-      tone: 'surface',
-    },
-    {
-      id: 'notifications',
-      label: 'Notifications',
-      note: 'Check unread alerts',
-      tone: 'surface',
-    },
+    { id: 'search-user',     label: 'Search User',  note: 'Find any profile fast',   tone: 'primary'  },
+    { id: 'new-chat',        label: 'New Chat',     note: 'Create a fresh room',     tone: 'primary'  },
+    { id: 'friends',         label: 'Friends',      note: 'Active connections',      tone: 'surface'  },
+    { id: 'add-friends',     label: 'Add Friends',  note: 'Invite new people',       tone: 'surface'  },
+    { id: 'notifications',   label: 'Alerts',       note: 'Check unread alerts',     tone: 'surface'  },
+    { id: 'settings',        label: 'Settings',     note: 'Control the workspace',   tone: 'surface'  },
   ],
+
   conversations: [
     {
       id: 'conv-01',
@@ -78,7 +45,7 @@ const chatWorkspace: ChatWorkspaceModel = {
       tag: 'Design',
       unreadCount: 3,
       avatarText: 'MP',
-      accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+      accent: '#8a2be2',
       presence: 'online',
       pinned: true,
     },
@@ -91,7 +58,7 @@ const chatWorkspace: ChatWorkspaceModel = {
       tag: 'Team',
       unreadCount: 0,
       avatarText: 'LC',
-      accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+      accent: '#0ea5e9',
       presence: 'focus',
       pinned: true,
     },
@@ -100,11 +67,11 @@ const chatWorkspace: ChatWorkspaceModel = {
       section: 'Recent',
       title: 'Sergiu Botezatu',
       message: 'Can you keep the class names simple for the API integration?',
-      time: 'Yesterday',
+      time: 'Ieri',
       tag: 'Dev',
       unreadCount: 1,
       avatarText: 'SB',
-      accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+      accent: '#f59e0b',
       presence: 'away',
     },
     {
@@ -112,11 +79,11 @@ const chatWorkspace: ChatWorkspaceModel = {
       section: 'Recent',
       title: 'QA Review',
       message: 'We only need frontend visuals for this version.',
-      time: 'Yesterday',
+      time: 'Ieri',
       tag: 'QA',
       unreadCount: 0,
       avatarText: 'QR',
-      accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+      accent: '#10b981',
       presence: 'online',
     },
     {
@@ -124,14 +91,15 @@ const chatWorkspace: ChatWorkspaceModel = {
       section: 'Groups',
       title: 'Friends Circle',
       message: 'Weekend meetup card can stay as a visual widget for now.',
-      time: 'Monday',
+      time: 'Luni',
       tag: 'Social',
       unreadCount: 5,
       avatarText: 'FC',
-      accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+      accent: '#ec4899',
       presence: 'online',
     },
   ],
+
   activeConversation: {
     id: 'conv-01',
     title: 'Mara Popa',
@@ -148,7 +116,7 @@ const chatWorkspace: ChatWorkspaceModel = {
         email: 'mara@whisperlink.app',
         presence: 'online',
         avatarText: 'MP',
-        accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+        accent: '#8a2be2',
       },
       {
         id: 'user-03',
@@ -158,17 +126,7 @@ const chatWorkspace: ChatWorkspaceModel = {
         email: 'radu@whisperlink.app',
         presence: 'focus',
         avatarText: 'RT',
-        accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
-      },
-      {
-        id: 'user-04',
-        name: 'Bianca Luca',
-        handle: '@bianca.pm',
-        role: 'Product Manager',
-        email: 'bianca@whisperlink.app',
-        presence: 'away',
-        avatarText: 'BL',
-        accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
+        accent: '#0ea5e9',
       },
       {
         id: 'user-01',
@@ -181,18 +139,13 @@ const chatWorkspace: ChatWorkspaceModel = {
         accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
       },
     ],
-    highlights: [
-      'Pure frontend layout, no backend logic',
-      'Simple names for classes, ids and components',
-      'Ready to split by API endpoints later',
-    ],
+    highlights: [],
     messages: [
       {
         id: 'msg-01',
         authorId: 'user-02',
         text: 'The new chat direction feels premium and different from Telegram.',
         time: '09:02',
-        badge: 'Review',
       },
       {
         id: 'msg-02',
@@ -211,42 +164,13 @@ const chatWorkspace: ChatWorkspaceModel = {
         authorId: 'user-01',
         text: 'Exactly. Search, friends, notifications and new chat already have isolated UI blocks.',
         time: '09:16',
-        badge: 'Ready',
       },
     ],
     files: [
-      { id: 'file-01', name: 'chat-page-wireframe.fig', meta: '2.4 MB  •  Design' },
-      { id: 'file-02', name: 'frontend-structure.pdf', meta: '860 KB  •  Docs' },
-      { id: 'file-03', name: 'api-map-notes.txt', meta: '12 KB  •  Notes' },
+      { id: 'file-01', name: 'chat-page-wireframe.fig', meta: '2.4 MB' },
+      { id: 'file-02', name: 'frontend-structure.pdf',  meta: '860 KB' },
     ],
-    insights: [
-      {
-        id: 'insight-01',
-        title: 'Focused Mode',
-        value: 'Visual Only',
-        note: 'No live requests, no backend flows yet.',
-      },
-      {
-        id: 'insight-02',
-        title: 'Main Theme',
-        value: 'Purple Pulse',
-        note: 'Built around the requested gradient accent.',
-      },
-      {
-        id: 'insight-03',
-        title: 'Integration',
-        value: 'Backend Ready',
-        note: 'Clear slots for chats, friends, profile and alerts.',
-      },
-    ],
-    composerHint: 'Write a message, attach a file or schedule a follow-up...',
+    insights: [],
+    composerHint: 'Scrie un mesaj... (Enter pentru trimite)',
   },
 }
-
-const chatService = {
-  getChatWorkspace() {
-    return chatWorkspace
-  },
-}
-
-export default chatService
