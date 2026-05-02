@@ -8,7 +8,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
   return (
     <div className="landing">
       <header className="landing-header">
-        <div className="landing-logo">
+        <div className="landing-logo" >
           <span className="landing-logo__mark">WL</span>
           <span className="landing-logo__name">WhisperLink</span>
         </div>
@@ -33,7 +33,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </button>
-            <button className="btn-ghost">Learn More</button>
+
           </div>
           <div className="hero-stats">
             <div className="stat">
@@ -130,45 +130,9 @@ export function LandingPage({ onEnter }: LandingPageProps) {
               Stay on top of every message, mention, and update with organized notifications.
             </p>
           </div>
-
-          <div className="feature-card">
-            <div className="feature-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h3 className="feature-card__title">Friends & Contacts</h3>
-            <p className="feature-card__text">
-              Manage your network, add friends, and organize contacts into groups.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h3 className="feature-card__title">Full Settings</h3>
-            <p className="feature-card__text">
-              Personalize your workspace with appearance, privacy, and notification controls.
-            </p>
-          </div>
-
-          <div className="feature-card feature-card--cta" onClick={onEnter}>
-            <div className="feature-card__icon feature-card__icon--bright">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="feature-card__title">Get Started Now</h3>
-            <p className="feature-card__text">
-              Open the chat workspace and explore all features in action.
-            </p>
-          </div>
         </div>
-      </section>
 
+      </section>
       <footer className="landing-footer">
         <span className="footer-brand">WhisperLink</span>
         <span className="footer-copy">Visual chat workspace · Frontend v1.0</span>
