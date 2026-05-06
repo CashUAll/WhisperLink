@@ -13,11 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WhisperLink.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba0b2d1d99d36cf58250cac3807167dc0057c8d5")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c70b74621c90104a2c03ad727e8f4a982d582b34")]
->>>>>>> Alexandru
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a98569c6ff943464ea7c772b0ae6ba2b39e0338")]
 [assembly: System.Reflection.AssemblyProductAttribute("WhisperLink.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WhisperLink.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
