@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { LandingPage }   from './pages/landing/LandingPage'
+import { LandingPage }   from './pages/Landing/LandingPage'
 import { LoginPage }     from './pages/auth/LoginPage'
 import { RegisterPage }  from './pages/auth/RegisterPage'
 import { ChatPage }      from './pages/chat/ChatPage'

@@ -1,1 +1,1 @@
-***************************************** DESCRIEREA PROIECTULUI ***************************************
+WhisperLink - Aplicatie web cu mesagerie integrata
