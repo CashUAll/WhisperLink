@@ -1,0 +1,8 @@
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.csproj.AssemblyReference.cache
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.AssemblyInfoInputs.cache
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.AssemblyInfo.cs
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.csproj.CoreCompileInputs.cache
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.MvcApplicationPartsAssemblyInfo.cs
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.MvcApplicationPartsAssemblyInfo.cache
+/Users/bunelu/AplicatieWeb/WhisperLink/Backend/WhisperLink.API/obj/Debug/net8.0/WhisperLink.API.sourcelink.json
