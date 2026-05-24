@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import { LandingPage } from './pages/Landing/LandingPage'
 import { LoginPage } from './pages/auth/LoginPage'
 import { RegisterPage } from './pages/auth/RegisterPage'
 import { ChatPage } from './pages/chat/ChatPage'
+=======
+import { LandingPage }   from './pages/Landing/LandingPage'
+import { LoginPage }     from './pages/auth/LoginPage'
+import { RegisterPage }  from './pages/auth/RegisterPage'
+import { ChatPage }      from './pages/chat/ChatPage'
+>>>>>>> 213f5e402a54993cb708c314bfeabd6b88862b0b
 
 type AppPage = 'landing' | 'login' | 'register' | 'chat'
 

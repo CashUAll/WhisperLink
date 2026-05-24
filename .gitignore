@@ -20,8 +20,8 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
+<<<<<<< HEAD
 
 # .NET
 **/bin/
@@ -34,3 +34,7 @@ dist-ssr
 # IDE
 .vs/
 .vscode/
+=======
+.vs/
+Backend/
+>>>>>>> 213f5e402a54993cb708c314bfeabd6b88862b0b
