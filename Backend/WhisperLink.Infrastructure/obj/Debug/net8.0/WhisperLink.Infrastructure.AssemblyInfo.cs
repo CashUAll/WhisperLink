@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WhisperLink.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c70b74621c90104a2c03ad727e8f4a982d582b34")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b178a57edd0a675feee5dcc1f8a0f14471045092")]
 [assembly: System.Reflection.AssemblyProductAttribute("WhisperLink.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WhisperLink.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
