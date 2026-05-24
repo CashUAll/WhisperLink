@@ -122,7 +122,10 @@ img {
   box-shadow: 0 8px 24px rgba(255, 0, 127, 0.25);
 }
 
-.view-header__icon svg { width: 24px; height: 24px; }
+.view-header__icon svg {
+  width: 24px;
+  height: 24px;
+}
 
 .view-header__title {
   margin: 0 0 4px;
@@ -167,7 +170,9 @@ img {
   font-size: 0.92rem;
 }
 
-.search-bar__input::placeholder { color: var(--text-muted); }
+.search-bar__input::placeholder {
+  color: var(--text-muted);
+}
 
 .search-bar__clear {
   width: 20px;
@@ -182,7 +187,10 @@ img {
   transition: background 160ms ease;
 }
 
-.search-bar__clear svg { width: 10px; height: 10px; }
+.search-bar__clear svg {
+  width: 10px;
+  height: 10px;
+}
 
 .search-bar__clear:hover {
   background: rgba(255, 255, 255, 0.14);

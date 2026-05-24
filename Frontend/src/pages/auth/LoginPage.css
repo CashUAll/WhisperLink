@@ -65,8 +65,15 @@
 }
 
 @keyframes card-in {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Logo ── */
@@ -150,7 +157,9 @@
   flex-shrink: 0;
 }
 
-.social-btn--apple { color: var(--text-main); }
+.social-btn--apple {
+  color: var(--text-main);
+}
 
 /* ── Divider ── */
 .auth-divider {
@@ -218,7 +227,9 @@
   transition: color 150ms ease;
 }
 
-.field-group__link:hover { color: #f472b6; }
+.field-group__link:hover {
+  color: #f472b6;
+}
 
 .field-group__input {
   width: 100%;
@@ -233,7 +244,9 @@
   box-sizing: border-box;
 }
 
-.field-group__input::placeholder { color: var(--text-muted); }
+.field-group__input::placeholder {
+  color: var(--text-muted);
+}
 
 .field-group__input:focus {
   border-color: rgba(138, 43, 226, 0.5);
@@ -267,7 +280,9 @@
   transition: color 150ms ease;
 }
 
-.field-group__eye:hover { color: var(--text-soft); }
+.field-group__eye:hover {
+  color: var(--text-soft);
+}
 
 .field-group__eye svg {
   width: 17px;
@@ -314,7 +329,9 @@
   transition: color 150ms ease;
 }
 
-.auth-switch__link:hover { color: #f472b6; }
+.auth-switch__link:hover {
+  color: #f472b6;
+}
 
 /* ── Responsive ── */
 @media (max-width: 480px) {

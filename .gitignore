@@ -21,5 +21,20 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sw?
+<<<<<<< HEAD
+
+# .NET
+**/bin/
+**/obj/
+
+# Node
+**/node_modules/
+**/dist/
+
+# IDE
+.vs/
+.vscode/
+=======
 .vs/
 Backend/
+>>>>>>> 213f5e402a54993cb708c314bfeabd6b88862b0b
