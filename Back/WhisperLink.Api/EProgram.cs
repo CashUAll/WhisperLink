@@ -144,10 +144,17 @@ builder.Services.AddScoped<FriendExecution>();
 var app = builder.Build();
 
 // Aplică migrațiile automat la pornire (Railway)
-using (var scope = app.Services.CreateScope())
+try
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    Console.WriteLine($"[DB] Connecting to: {db.Database.GetConnectionString()?[..Math.Min(50, db.Database.GetConnectionString()!.Length)]}...");
     db.Database.Migrate();
+    Console.WriteLine("[DB] Migrations applied successfully.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[DB] Migration failed: {ex.Message}");
 }
 
 // Swagger disponibil și în producție (Railway)
