@@ -140,6 +140,13 @@ builder.Services.AddScoped<FriendExecution>();
 
 var app = builder.Build();
 
+// Aplică migrațiile automat la pornire (Railway)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 // Swagger disponibil și în producție (Railway)
 app.UseSwagger();
 app.UseSwaggerUI();
