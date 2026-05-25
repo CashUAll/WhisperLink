@@ -16,6 +16,7 @@ function App() {
 
   if (page === 'chat') return <ChatPage onBack={() => setPage('landing')} />
   if (page === 'login') return <LoginPage onLogin={() => setPage('chat')} onGoRegister={() => setPage('register')} onBack={() => setPage('landing')} />
+  if (page === 'register') return <RegisterPage onRegister={() => setPage('chat')} onGoLogin={() => setPage('login')} onBack={() => setPage('landing')} />
   return <LandingPage onEnter={() => setPage('login')} />
 }
 
