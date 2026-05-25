@@ -43,14 +43,17 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Database - PostgreSQL
-// Railway furnizează DATABASE_URL în format postgresql://user:pass@host:port/db
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+// Railway setează PGHOST, PGPORT, PGUSER, PGPASSWORD, PGDATABASE automat
+var pgHost = Environment.GetEnvironmentVariable("PGHOST");
+var pgPort = Environment.GetEnvironmentVariable("PGPORT") ?? "5432";
+var pgUser = Environment.GetEnvironmentVariable("PGUSER");
+var pgPassword = Environment.GetEnvironmentVariable("PGPASSWORD");
+var pgDatabase = Environment.GetEnvironmentVariable("PGDATABASE");
+
 string connectionString;
-if (!string.IsNullOrEmpty(databaseUrl))
+if (!string.IsNullOrEmpty(pgHost))
 {
-    var uri = new Uri(databaseUrl);
-    var userInfo = uri.UserInfo.Split(':');
-    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+    connectionString = $"Host={pgHost};Port={pgPort};Database={pgDatabase};Username={pgUser};Password={pgPassword};SSL Mode=Require;Trust Server Certificate=true";
 }
 else
 {
