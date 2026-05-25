@@ -120,7 +120,20 @@ builder.Services.AddScoped<UserExecution>();
 builder.Services.AddScoped<MessageExecution>();
 builder.Services.AddScoped<FriendExecution>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("https://frontendul-tau.vercel.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 // Middleware pipeline
 if (app.Environment.IsDevelopment())
@@ -135,5 +148,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
