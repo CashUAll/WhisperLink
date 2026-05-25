@@ -34,7 +34,7 @@ export function RegisterPage({ onRegister, onGoLogin, onBack }: RegisterPageProp
     setError('')
     setLoading(true)
     try {
-      const res = await authApi.register({ name, email, password })
+      const res = await authApi.register({ username: name, email, password })
       localStorage.setItem('token', res.token)
       localStorage.setItem('user', JSON.stringify(res.user))
       onRegister()

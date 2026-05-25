@@ -1,36 +1,20 @@
-// ─── User API ─────────────────────────────────────────────────────────────────
-// Conectare cu: /api/users/me, /users/:id
-
 import { request } from './client'
+import type { BackendUser } from './auth.api'
 
-export interface UserProfileDto {
-  id: string
-  name: string
-  handle: string
-  email: string
-  bio?: string
-  role?: string
-  avatarUrl?: string
-  status: 'online' | 'away' | 'offline'
-}
-
-export interface UpdateProfilePayload {
-  name?: string
-  handle?: string
-  bio?: string
-  role?: string
+export interface UpdateUserPayload {
+  username?: string
+  email?: string
+  firstName?: string
+  lastName?: string
 }
 
 export const userApi = {
-  getMe: (token: string) =>
-    request<UserProfileDto>('/users/me', { token }),
+  getUser: (userId: number, token: string) =>
+    request<BackendUser>(`/User/${userId}`, { token }),
 
-  getUser: (userId: string, token: string) =>
-    request<UserProfileDto>(`/users/${userId}`, { token }),
+  getAllUsers: (token: string, search?: string) =>
+    request<BackendUser[]>(`/User${search ? `?search=${encodeURIComponent(search)}` : ''}`, { token }),
 
-  updateProfile: (data: UpdateProfilePayload, token: string) =>
-    request<UserProfileDto>('/users/me', { method: 'PATCH', body: data, token }),
-
-  updateStatus: (status: 'online' | 'away' | 'offline', token: string) =>
-    request<void>('/users/me/status', { method: 'PATCH', body: { status }, token }),
+  updateUser: (userId: number, data: UpdateUserPayload, token: string) =>
+    request<BackendUser>(`/User/${userId}`, { method: 'PUT', body: data, token }),
 }
