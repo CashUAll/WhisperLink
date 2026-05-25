@@ -22,6 +22,7 @@ namespace WhisperLink.DataAccess.Context
             // USER - configurare
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("users");
                 entity.HasIndex(u => u.Username).IsUnique();
                 entity.HasIndex(u => u.Email).IsUnique();
             });
@@ -29,6 +30,7 @@ namespace WhisperLink.DataAccess.Context
             // MESSAGE - configurare relații
             modelBuilder.Entity<Message>(entity =>
             {
+                entity.ToTable("messages");
                 // Relație Sender (1 User -> N Messages trimise)
                 entity.HasOne(m => m.Sender)
                     .WithMany(u => u.SentMessages)
@@ -45,6 +47,7 @@ namespace WhisperLink.DataAccess.Context
             // FRIENDSHIP - configurare relații
             modelBuilder.Entity<Friendship>(entity =>
             {
+                entity.ToTable("friendships");
                 // Relație Requester (1 User -> N Friendships cerute)
                 entity.HasOne(f => f.Requester)
                     .WithMany(u => u.RequestedFriendships)
@@ -61,6 +64,7 @@ namespace WhisperLink.DataAccess.Context
             // REFRESH TOKEN - configurare relație
             modelBuilder.Entity<RefreshToken>(entity =>
             {
+                entity.ToTable("refresh_tokens");
                 // Relație User (1 User -> N RefreshTokens)
                 entity.HasOne(rt => rt.User)
                     .WithMany(u => u.RefreshTokens)
