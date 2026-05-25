@@ -21,7 +21,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WhisperLink API", Version = "v1" });
 
-    // Configurare JWT în Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] token",
@@ -44,8 +43,22 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Database - PostgreSQL
+// Railway furnizează DATABASE_URL în format postgresql://user:pass@host:port/db
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+string connectionString;
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    var uri = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':');
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseNpgsql(connectionString)
 );
 
 // AutoMapper
@@ -94,12 +107,16 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// CORS - permite frontend-ul
+// CORS - permite frontend-ul (local + Vercel)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "https://whisper-link-34h3.vercel.app")
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://whisper-link-34h3.vercel.app"
+              )
               .AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials();
@@ -121,28 +138,12 @@ builder.Services.AddScoped<MessageExecution>();
 builder.Services.AddScoped<FriendExecution>();
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("https://frontendul-tau.vercel.app")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
 var app = builder.Build();
 
-app.UseCors("AllowFrontend");
+// Swagger disponibil și în producție (Railway)
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
