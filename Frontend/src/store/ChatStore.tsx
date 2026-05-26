@@ -3,13 +3,21 @@ import type { ReactNode } from 'react'
 import type { ChatWorkspaceModel, ChatUser, ConversationPreview } from '../types'
 import { chatApi } from '../api/chat.api'
 import type { ConversationDto } from '../api/chat.api'
-import type { BackendUser } from '../api/auth.api'
 import { mockChatWorkspace } from '../mock/chat.mock'
 
 const ChatContext = createContext<ChatWorkspaceModel | null>(null)
 
 function getToken(): string {
   return localStorage.getItem('token') ?? ''
+}
+
+interface BackendUser {
+  id: number
+  username: string
+  email: string
+  firstName?: string
+  lastName?: string
+  isOnline: boolean
 }
 
 function getStoredUser(): BackendUser | null {
@@ -36,19 +44,17 @@ function backendUserToChatUser(u: BackendUser): ChatUser {
 }
 
 function conversationDtoToPreview(dto: ConversationDto): ConversationPreview {
-  const u = dto.user
-  const initials = ((u.firstName?.[0] ?? '') + (u.lastName?.[0] ?? '')) || u.username.slice(0, 2).toUpperCase()
   return {
-    id: String(u.id),
+    id: dto.id,
     section: 'Conversații',
-    title: u.firstName && u.lastName ? `${u.firstName} ${u.lastName}` : u.username,
-    message: dto.lastMessage?.content ?? '',
-    time: dto.lastMessage ? new Date(dto.lastMessage.createdAt).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' }) : '',
+    title: dto.title,
+    message: dto.lastMessage,
+    time: dto.lastMessageTime,
     tag: '',
     unreadCount: dto.unreadCount,
-    avatarText: initials,
+    avatarText: dto.title.slice(0, 2).toUpperCase(),
     accent: 'linear-gradient(135deg, #8a2be2, #ff007f)',
-    presence: u.isOnline ? 'online' : 'offline',
+    presence: 'offline',
   }
 }
 
