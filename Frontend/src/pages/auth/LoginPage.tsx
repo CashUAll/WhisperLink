@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './LoginPage.css'
+import { authApi } from '../../api/auth.api'
 
 interface LoginPageProps {
   onLogin: () => void
@@ -12,15 +13,26 @@ export function LoginPage({ onLogin, onGoRegister, onBack }: LoginPageProps) {
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email || !password) {
       setError('Completează toate câmpurile.')
       return
     }
     setError('')
-    onLogin()
+    setLoading(true)
+    try {
+      const res = await authApi.login({ usernameOrEmail: email, password })
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('user', JSON.stringify(res.user))
+      onLogin()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Email sau parolă incorectă.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -125,8 +137,8 @@ export function LoginPage({ onLogin, onGoRegister, onBack }: LoginPageProps) {
             </div>
           </div>
 
-          <button className="auth-submit-btn" type="submit">
-            Conectează-te
+          <button className="auth-submit-btn" type="submit" disabled={loading}>
+            {loading ? 'Se încarcă...' : 'Conectează-te'}
           </button>
         </form>
 

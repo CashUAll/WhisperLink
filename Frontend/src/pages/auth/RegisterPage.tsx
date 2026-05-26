@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './RegisterPage.css'
+import { authApi } from '../../api/auth.api'
 
 interface RegisterPageProps {
   onRegister: () => void
@@ -14,8 +15,9 @@ export function RegisterPage({ onRegister, onGoLogin, onBack }: RegisterPageProp
   const [confirm, setConfirm] = useState('')
   const [showPass, setShowPass] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name || !email || !password || !confirm) {
       setError('Completează toate câmpurile.')
@@ -30,7 +32,17 @@ export function RegisterPage({ onRegister, onGoLogin, onBack }: RegisterPageProp
       return
     }
     setError('')
-    onRegister()
+    setLoading(true)
+    try {
+      const res = await authApi.register({ username: name, email, password })
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('user', JSON.stringify(res.user))
+      onRegister()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Înregistrarea a eșuat.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -165,8 +177,8 @@ export function RegisterPage({ onRegister, onGoLogin, onBack }: RegisterPageProp
             <button type="button" className="auth-switch__link">Politica de confidențialitate</button>.
           </p>
 
-          <button className="auth-submit-btn" type="submit">
-            Creează contul
+          <button className="auth-submit-btn" type="submit" disabled={loading}>
+            {loading ? 'Se încarcă...' : 'Creează contul'}
           </button>
         </form>
 

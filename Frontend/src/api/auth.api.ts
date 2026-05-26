@@ -27,14 +27,14 @@ export interface AuthResponse {
 
 export const authApi = {
   login: (data: LoginPayload) =>
-    request<AuthResponse>('/auth/login', { method: 'POST', body: data }),
+    request<AuthResponse>('/Auth/login', { method: 'POST', body: data }),
 
   register: (data: RegisterPayload) =>
-    request<AuthResponse>('/auth/register', { method: 'POST', body: data }),
+    request<AuthResponse>('/Auth/register', { method: 'POST', body: data }),
 
   logout: (token: string) =>
-    request<void>('/auth/logout', { method: 'POST', token }),
+    request<void>('/Auth/logout', { method: 'POST', token }),
 
   refreshToken: (token: string) =>
-    request<{ token: string }>('/auth/refresh', { method: 'POST', token }),
+    request<{ token: string }>('/Auth/refresh-token', { method: 'POST', token }),
 }
