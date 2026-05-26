@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WhisperLink.BusinessLayer.Core.Executions;
@@ -178,6 +179,26 @@ namespace WhisperLink.Api.Controllers
             if (user == null) return NotFound(new { message = "User not found" });
 
             return Ok(user);
+        }
+
+        // GET /api/Auth/stats - statistici publice (fără autentificare)
+        [HttpGet("stats")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetPublicStats()
+        {
+            var totalUsers = await _context.Users.CountAsync();
+            var onlineUsers = await _context.Users.CountAsync(u => u.IsOnline);
+            var totalMessages = await _context.Messages.CountAsync();
+            var totalFriendships = await _context.Friendships.CountAsync(f => f.Status == Domain.Enums.FriendshipStatus.Accepted);
+
+            return Ok(new
+            {
+                totalUsers,
+                onlineUsers,
+                totalMessages,
+                totalFriendships,
+                timestamp = DateTime.UtcNow
+            });
         }
     }
 

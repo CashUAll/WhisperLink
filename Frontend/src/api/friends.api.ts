@@ -1,33 +1,40 @@
-import { request } from './client'
-import type { BackendUser } from './auth.api'
+// ─── Friends API ──────────────────────────────────────────────────────────────
+// Conectare cu: /api/friends, /friend-requests
 
-export interface FriendshipDto {
-  id: number
-  requesterId: number
-  addresseeId: number
-  status: number
+import { request } from './client'
+
+export interface FriendDto {
+  id: string
+  name: string
+  handle: string
+  avatarUrl?: string
+  status: 'online' | 'away' | 'offline'
+}
+
+export interface FriendRequestDto {
+  id: string
+  fromUserId: string
+  toUserId: string
+  status: 'pending' | 'accepted' | 'rejected'
   createdAt: string
-  updatedAt?: string
-  requester: BackendUser
-  addressee: BackendUser
 }
 
 export const friendsApi = {
   getFriends: (token: string) =>
-    request<FriendshipDto[]>('/Friend', { token }),
-
-  getPendingRequests: (token: string) =>
-    request<FriendshipDto[]>('/Friend/pending', { token }),
+    request<FriendDto[]>('/Friend', { token }),
 
   searchUsers: (query: string, token: string) =>
-    request<BackendUser[]>(`/User?search=${encodeURIComponent(query)}`, { token }),
+    request<FriendDto[]>(`/User?search=${encodeURIComponent(query)}`, { token }),
 
-  sendRequest: (addresseeId: number, token: string) =>
-    request<FriendshipDto>('/Friend/request', { method: 'POST', body: { addresseeId }, token }),
+  sendRequest: (toUserId: string, token: string) =>
+    request<FriendRequestDto>('/Friend/request', { method: 'POST', body: { toUserId }, token }),
 
-  acceptRequest: (id: number, token: string) =>
-    request<FriendshipDto>(`/Friend/${id}/accept`, { method: 'PUT', token }),
+  acceptRequest: (requestId: string, token: string) =>
+    request<FriendRequestDto>(`/Friend/${requestId}/accept`, { method: 'PUT', token }),
 
-  rejectRequest: (id: number, token: string) =>
-    request<void>(`/Friend/${id}/reject`, { method: 'PUT', token }),
+  rejectRequest: (requestId: string, token: string) =>
+    request<FriendRequestDto>(`/Friend/${requestId}/reject`, { method: 'PUT', token }),
+
+  removeFriend: (friendId: string, token: string) =>
+    request<void>(`/Friend/${friendId}`, { method: 'DELETE', token }),
 }

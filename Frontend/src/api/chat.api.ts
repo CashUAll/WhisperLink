@@ -1,39 +1,40 @@
-import { request } from './client'
-import type { BackendUser } from './auth.api'
+// ─── Chat API ─────────────────────────────────────────────────────────────────
+// Conectare cu: /api/conversations, /messages
 
-export interface MessageDto {
-  id: number
-  senderId: number
-  receiverId: number
-  content: string
-  status: number
-  readAt?: string
-  createdAt: string
-  sender: BackendUser
-  receiver: BackendUser
-}
+import { request } from './client'
 
 export interface ConversationDto {
-  user: BackendUser
-  lastMessage: MessageDto
+  id: string
+  title: string
+  lastMessage: string
+  lastMessageTime: string
   unreadCount: number
+  participantIds: string[]
+}
+
+export interface MessageDto {
+  id: string
+  conversationId: string
+  authorId: string
+  text: string
+  createdAt: string
 }
 
 export interface SendMessagePayload {
-  receiverId: number
-  content: string
+  conversationId: string
+  text: string
 }
 
 export const chatApi = {
   getConversations: (token: string) =>
     request<ConversationDto[]>('/Message/conversations', { token }),
 
-  getMessages: (otherUserId: number, token: string) =>
-    request<MessageDto[]>(`/Message/conversation/${otherUserId}`, { token }),
+  getMessages: (conversationId: string, token: string) =>
+    request<MessageDto[]>(`/Message/conversation/${conversationId}`, { token }),
 
   sendMessage: (data: SendMessagePayload, token: string) =>
     request<MessageDto>('/Message', { method: 'POST', body: data, token }),
 
-  markAsRead: (messageId: number, token: string) =>
-    request<void>(`/Message/${messageId}/read`, { method: 'PUT', token }),
+  createConversation: (participantIds: string[], token: string) =>
+    request<ConversationDto>('/Message/conversations', { method: 'POST', body: { participantIds }, token }),
 }

@@ -33,6 +33,21 @@ namespace WhisperLink.Api.Controllers
         {
             var user = await _userExecution.GetUserByIdAsync(id);
             if (user == null) return NotFound(new { message = "User not found" });
+
+            return Ok(user);
+        }
+
+        // GET /api/User/me - utilizatorul curent
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized(new { message = "Invalid token" });
+
+            var user = await _userExecution.GetUserByIdAsync(userId);
+            if (user == null) return NotFound(new { message = "User not found" });
+
             return Ok(user);
         }
 
@@ -41,13 +56,30 @@ namespace WhisperLink.Api.Controllers
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserDto updateDto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
                 return Unauthorized(new { message = "Invalid token" });
 
-            // User poate actualiza doar propriul profil
-            if (id != currentUserId) return Forbid();
+            // Admin poate edita orice profil, User doar pe al lui
+            if (id != currentUserId && userRole != "Admin")
+                return Forbid();
 
             var updatedUser = await _userExecution.UpdateUserAsync(id, updateDto);
+            if (updatedUser == null) return NotFound(new { message = "User not found" });
+
+            return Ok(updatedUser);
+        }
+
+        // PUT /api/User/me - actualizare profil curent
+        [HttpPut("me")]
+        public async Task<IActionResult> UpdateCurrentUser([FromBody] UpdateUserDto updateDto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized(new { message = "Invalid token" });
+
+            var updatedUser = await _userExecution.UpdateUserAsync(userId, updateDto);
             if (updatedUser == null) return NotFound(new { message = "User not found" });
 
             return Ok(updatedUser);
@@ -72,11 +104,14 @@ namespace WhisperLink.Api.Controllers
         public async Task<IActionResult> DeleteUser(int id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
                 return Unauthorized(new { message = "Invalid token" });
 
-            // User poate șterge doar propriul cont
-            if (id != currentUserId) return Forbid();
+            // Admin poate șterge orice cont, User doar pe al lui
+            if (id != currentUserId && userRole != "Admin")
+                return Forbid();
 
             var result = await _userExecution.DeleteUserAsync(id);
             if (!result) return NotFound(new { message = "User not found" });

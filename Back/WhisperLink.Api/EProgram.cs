@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WhisperLink API", Version = "v1" });
 
+    // Configurare JWT în Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] token",
@@ -42,21 +43,24 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Database - PostgreSQL
-// Railway furnizează DATABASE_URL în format postgresql://user:pass@host:port/db
+// Database - PostgreSQL cu suport Railway
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 string connectionString;
+
 if (!string.IsNullOrEmpty(databaseUrl))
 {
+    // Parse Railway DATABASE_URL (format: postgresql://user:pass@host:port/db)
     var uri = new Uri(databaseUrl);
     var userParts = uri.UserInfo.Split(':', 2);
     var username = Uri.UnescapeDataString(userParts[0]);
     var password = userParts.Length > 1 ? Uri.UnescapeDataString(userParts[1]) : "";
     var database = uri.AbsolutePath.TrimStart('/');
+
     connectionString = $"Host={uri.Host};Port={uri.Port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
 }
 else
 {
+    // Folosește connection string local din appsettings.json
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 }
 
@@ -110,15 +114,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// CORS - permite frontend-ul (local + Vercel)
+// CORS - permite frontend-ul (local + orice deployment Vercel)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "https://whisper-link-34h3.vercel.app"
+        policy.SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost") ||
+                origin.EndsWith(".vercel.app")
               )
               .AllowAnyMethod()
               .AllowAnyHeader()
@@ -140,24 +143,24 @@ builder.Services.AddScoped<UserExecution>();
 builder.Services.AddScoped<MessageExecution>();
 builder.Services.AddScoped<FriendExecution>();
 
-
 var app = builder.Build();
 
-// Aplică migrațiile automat la pornire (Railway)
-try
+// Rulează migrații automat la pornire (pentru Railway/producție)
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    Console.WriteLine($"[DB] Connecting to: {db.Database.GetConnectionString()?[..Math.Min(50, db.Database.GetConnectionString()!.Length)]}...");
-    db.Database.Migrate();
-    Console.WriteLine("[DB] Migrations applied successfully.");
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"[DB] Migration failed: {ex.Message}");
+    try
+    {
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
 }
 
-// Swagger disponibil și în producție (Railway)
+// Swagger disponibil și în producție (pentru Railway testing)
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -167,6 +170,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
 
+// Port dinamic pentru Railway (Railway setează variabila PORT)
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Urls.Add($"http://0.0.0.0:{port}");
 
