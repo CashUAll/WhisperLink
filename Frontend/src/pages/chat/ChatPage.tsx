@@ -10,6 +10,7 @@ import { SettingsView }      from './views/SettingsView'
 import { FriendsView }       from './views/FriendsView'
 import { AddFriendView }     from './views/AddFriendView'
 import { ProfileView }       from './views/ProfileView'
+import { AdminDashboard }    from '../admin/AdminDashboard'
 import './ChatPage.css'
 
 interface ChatPageProps {
@@ -49,6 +50,7 @@ function ChatPageContent({ onBack }: ChatPageProps) {
         {currentView === 'settings'      && <SettingsView />}
         {currentView === 'friends'       && <FriendsView />}
         {currentView === 'add-friend'    && <AddFriendView />}
+        {currentView === 'admin'         && <AdminDashboard />}
         {currentView === 'profile'       && <ProfileView />}
       </div>
     </main>
