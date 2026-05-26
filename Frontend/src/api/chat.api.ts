@@ -27,14 +27,14 @@ export interface SendMessagePayload {
 
 export const chatApi = {
   getConversations: (token: string) =>
-    request<ConversationDto[]>('/conversations', { token }),
+    request<ConversationDto[]>('/Message/conversations', { token }),
 
   getMessages: (conversationId: string, token: string) =>
-    request<MessageDto[]>(`/conversations/${conversationId}/messages`, { token }),
+    request<MessageDto[]>(`/Message/conversation/${conversationId}`, { token }),
 
   sendMessage: (data: SendMessagePayload, token: string) =>
-    request<MessageDto>('/messages', { method: 'POST', body: data, token }),
+    request<MessageDto>('/Message', { method: 'POST', body: data, token }),
 
   createConversation: (participantIds: string[], token: string) =>
-    request<ConversationDto>('/conversations', { method: 'POST', body: { participantIds }, token }),
+    request<ConversationDto>('/Message/conversations', { method: 'POST', body: { participantIds }, token }),
 }

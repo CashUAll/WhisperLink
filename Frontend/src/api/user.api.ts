@@ -23,14 +23,14 @@ export interface UpdateProfilePayload {
 
 export const userApi = {
   getMe: (token: string) =>
-    request<UserProfileDto>('/users/me', { token }),
+    request<UserProfileDto>('/User/me', { token }),
 
   getUser: (userId: string, token: string) =>
-    request<UserProfileDto>(`/users/${userId}`, { token }),
+    request<UserProfileDto>(`/User/${userId}`, { token }),
 
   updateProfile: (data: UpdateProfilePayload, token: string) =>
-    request<UserProfileDto>('/users/me', { method: 'PATCH', body: data, token }),
+    request<UserProfileDto>('/User/me', { method: 'PUT', body: data, token }),
 
   updateStatus: (status: 'online' | 'away' | 'offline', token: string) =>
-    request<void>('/users/me/status', { method: 'PATCH', body: { status }, token }),
+    request<void>('/User/me/status', { method: 'PUT', body: { status }, token }),
 }
