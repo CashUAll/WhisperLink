@@ -8,13 +8,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
   return (
     <div className="landing">
       <header className="landing-header">
-<<<<<<< HEAD
-
-        <div className="landing-logo" >
-
-=======
         <div className="landing-logo">
->>>>>>> 76367ad7a612ce9ecf47a9b8094ec5493cfe6b7f
           <span className="landing-logo__mark">WL</span>
           <span className="landing-logo__name">WhisperLink</span>
         </div>
@@ -39,13 +33,8 @@ export function LandingPage({ onEnter }: LandingPageProps) {
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </button>
-<<<<<<< HEAD
-
-          </div >
-=======
             <button className="btn-ghost">Learn More</button>
           </div>
->>>>>>> 76367ad7a612ce9ecf47a9b8094ec5493cfe6b7f
           <div className="hero-stats">
             <div className="stat">
               <span className="stat__value">Real-Time</span>
@@ -62,7 +51,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
               <span className="stat__label">Backend Hooks</span>
             </div>
           </div>
-        </div >
+        </div>
 
         <div className="hero-right">
           <div className="chat-preview">
@@ -100,7 +89,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       <section className="features">
         <p className="features-label">Everything you need</p>
@@ -177,13 +166,13 @@ export function LandingPage({ onEnter }: LandingPageProps) {
               Open the chat workspace and explore all features in action.
             </p>
           </div>
-        </div >
-      </section >
+        </div>
+      </section>
 
       <footer className="landing-footer">
         <span className="footer-brand">WhisperLink</span>
         <span className="footer-copy">Visual chat workspace · Frontend v1.0</span>
       </footer>
-    </div >
+    </div>
   )
 }
