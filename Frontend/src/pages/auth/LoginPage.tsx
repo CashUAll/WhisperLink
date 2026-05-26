@@ -24,7 +24,7 @@ export function LoginPage({ onLogin, onGoRegister, onBack }: LoginPageProps) {
     setError('')
     setLoading(true)
     try {
-      const res = await authApi.login({ usernameOrEmail: email, password })
+      const res = await authApi.login({ email, password })
       localStorage.setItem('token', res.token)
       localStorage.setItem('user', JSON.stringify(res.user))
       onLogin()
